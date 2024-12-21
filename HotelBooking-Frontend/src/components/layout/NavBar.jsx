@@ -28,12 +28,15 @@ const NavBar = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarScroll">
 					<ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+					{isLoggedIn ? (
 						<li className="nav-item">
 							<NavLink className="nav-link" aria-current="page" to={"/browse-all-rooms"}>
-								Browse all rooms
-							</NavLink>
+							Browse all rooms
+						   </NavLink>
 						</li>
-
+					):(
+						<></>
+					)}
 						{isLoggedIn && userRole === "ROLE_ADMIN" && (
 							<li className="nav-item">
 								<NavLink className="nav-link" aria-current="page" to={"/admin"}>
@@ -61,20 +64,19 @@ const NavBar = () => {
 								{" "}
 								Account
 							</a>
-
-							<ul
-								className={`dropdown-menu ${showAccount ? "show" : ""}`}
-								aria-labelledby="navbarDropdown">
-								{isLoggedIn ? (
-									<Logout />
-								) : (
-									<li>
-										<Link className="dropdown-item" to={"/login"}>
-											Login
-										</Link>
-									</li>
-								)}
-							</ul>
+							<ul className="dropdown-menu">
+                           {isLoggedIn ? (
+                            <li>
+                                 <Logout /> {/* Now no invalid <li> nesting */}
+                            </li>
+                            ) : (
+                             <li>
+                                 <Link className="dropdown-item" to={"/login"}>
+                                     Login
+                                 </Link>
+                             </li>
+                            )}
+                             </ul>
 						</li>
 					</ul>
 				</div>

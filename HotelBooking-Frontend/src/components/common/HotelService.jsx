@@ -1,7 +1,7 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container,Card, Row, Col } from 'react-bootstrap'
 import { FaClock, FaCocktail, FaParking, FaSnowflake, FaTshirt, FaUtensils, FaWifi } from 'react-icons/fa'
-
+import Header from './Header'
 
 const HotelService = () => {
   return (
@@ -10,9 +10,9 @@ const HotelService = () => {
              <Header title={"Our Services"}/>
 
              <Row>
-                <h4 className='text-center'> Services at <span className='hotel-color'> lakeSide - </span>  Hotel
+                <h4 className='text-center'> Services at <span className='hotel-color'> lakeSide - </span>  Hotel 
                 <span className='gap-2'>
-                    <FaClock/> - 24 - Hour Front Desk
+                     - <FaClock/> - 24x7 Front Desk
                 </span>
                 </h4>
              </Row>
@@ -35,7 +35,7 @@ const HotelService = () => {
                   <Card.Title className="hotel-color">
                    <FaUtensils/> Breakfast
                   </Card.Title> 
-                  <Card.Text>Star</Card.Text>
+                  <Card.Text>Start your day with a delicious breakfast buffet.</Card.Text>
                 </Card.Body>
                </Card>
                </Col>

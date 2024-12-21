@@ -36,20 +36,21 @@ public class RoomController {
     private final BookingService bookingService;
 
     @PostMapping("/add/new-room")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<RoomResponse> addNewRoom(@RequestParam("photo") MultipartFile photo,@RequestParam("roomType") String roomType,@RequestParam("roomPrice")  BigDecimal roomPrice) throws SQLException, IOException {
-        Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice);
-        RoomResponse response = new RoomResponse(savedRoom.getId(), savedRoom.getRoomType(), savedRoom.getRoomPrice());
+    @PreAuthorize("hasRole('ROLE_ADMIN')")//authorized(allowed) only for admin
+    public ResponseEntity<RoomResponse> addNewRoom(@RequestParam("photo") MultipartFile photo,@RequestParam("roomType") String roomType,@RequestParam("roomPrice")  BigDecimal roomPrice) throws SQLException, IOException {//Get the photo,roomType,roomPrice from frontend url(requestbody)
+        Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice);//send the extracted photo,roomType,roomPrice to service(roomService) to process further to store in database.
+        RoomResponse response = new RoomResponse(savedRoom.getId(), savedRoom.getRoomType(), savedRoom.getRoomPrice());//convert saved Room to room response to give the response.
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);//return response to frontend webpage
     }
 
     @GetMapping("/room/types")
-    public List<String> getRoomTypes(){
+    public List<String> getRoomTypes(){//get all room types
         return roomService.getAllRoomTypes();
     }
-
-    public ResponseEntity<List<RoomResponse>> getAllRooms() throws SQLException {
+    
+    @GetMapping("/all-rooms")
+    public ResponseEntity<List<RoomResponse>> getAllRooms() throws SQLException {//get all rooms stored in database
         List<Room> rooms = roomService.getAllRooms();
         List<RoomResponse> roomResponses = new ArrayList<>();
         for(Room room : rooms){
@@ -71,7 +72,7 @@ public class RoomController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/update/{roomId}")
+    @PutMapping("/update/{roomId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long roomId, @RequestParam(required = false) String roomType, @RequestParam(required = false) BigDecimal roomPrice, @RequestParam(required = false) MultipartFile photo) throws IOException, SQLException {
 
@@ -84,7 +85,7 @@ public class RoomController {
     }
 
     @GetMapping("/room/{roomId}")
-    public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId){
+    public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId){//get particular room
        Optional<Room> theRoom = roomService.getRoomById(roomId);
 
         return theRoom.map(room -> {

@@ -28,22 +28,22 @@ public class JwtUtils {
     @Value("${auth.token.expirationInMils}")
     private int jwtExpirationMs;
 
-    public String generateJwtTokenForUser(Authentication authentication){
+    public String generateJwtTokenForUser(Authentication authentication){//generate the jwt token
         HotelUserDetails userPrincipal = (HotelUserDetails) authentication.getPrincipal();
         List<String> roles = userPrincipal.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority).toList();
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
+                .setSubject(userPrincipal.getUsername())//contains username
                 .claim("roles", roles)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime()+jwtExpirationMs))
-                .signWith(key(), SignatureAlgorithm.HS256).compact();
+                .setIssuedAt(new Date())//issued time
+                .setExpiration(new Date((new Date()).getTime()+jwtExpirationMs))//expire time
+                .signWith(key(), SignatureAlgorithm.HS256).compact();//set algorithm and generate
     }
 
 
     private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));//add our jwtSecret
     }
 
     public String getUserNameFromToken(String token){

@@ -2,7 +2,9 @@ import React from 'react'
 import { Card, Col } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
-const RoomCard = () => {
+const RoomCard = ({room}) => {
+  const isLoggedIn = localStorage.getItem("token")
+  const userRole = localStorage.getItem("userRole")
   return (
     <Col key={room.id} className="mb-4" xs={12}>
     <Card>
@@ -14,13 +16,15 @@ const RoomCard = () => {
      </div> 
      <div className='flex-grow-1 ml-3 px-5'>
         <Card.Title className='hotel-color'>{room.roomType}</Card.Title>
-        <Card.Title className='room-price'>{room.roomPrice}</Card.Title> 
+        <Card.Title className='room-price'>${room.roomPrice}</Card.Title> 
         <Card.Text>Some room information goes here for the guest to read through</Card.Text>
      </div> 
      <div className='flex-shrink-0 mt-3'>
-        <Link to={`/book-room/${room.id}`} className='btn btn-hotel btn-sm'>
-        Book Now
-        </Link>
+     {isLoggedIn && userRole === "ROLE_USER" && (
+      <Link to={`/book-room/${room.id}`} className='btn btn-hotel btn-sm'>
+      Book Now
+      </Link>
+     )}
      </div>
     </Card.Body>
     </Card>

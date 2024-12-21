@@ -7,6 +7,9 @@ const RoomCarousel = () => {
     const[rooms, setRooms] = useState([{id :"", roomType:"", roomPrice:"", photo:""}])
     const[errorMessage, setErrorMessage] = useState("")
     const[isLoading, setIsLoading] = useState(false) 
+
+    const isLoggedIn = localStorage.getItem("token")
+    const userRole = localStorage.getItem("userRole")
    
  useEffect(() => {
     setIsLoading(true) 
@@ -29,7 +32,7 @@ const RoomCarousel = () => {
 
   return (
     <section className='bg-light mb-5 mt-5 shadow'>
-             <Link to={"/browser-all-rooms"} className='hotel-color text-center'>
+             <Link to={"/browse-all-rooms"} className='hotel-color text-center'>
              Browser all rooms 
              </Link> 
 
@@ -47,10 +50,12 @@ const RoomCarousel = () => {
                                         <Card.Body>
                                             <Card.Title className='hotel-color'>{room.roomType}</Card.Title> 
                                             <Card.Title className='room-price'>${room.roomPrice}/night</Card.Title> 
-                                            <div className='flex-shrink-0'>
-                                                <Link className='btn btn-sm btn-hotel' to={`/book-room/${room.id}`}>
-                                                Book Now
+                                            <div className='flex-shrink-0'>   
+                                                {isLoggedIn && userRole === "ROLE_USER" && (
+							                    <Link className='btn btn-sm btn-hotel' to={`/book-room/${room.id}`}>
+                                                 Book Now
                                                 </Link>
+					                        	)}
                                             </div>
                                         </Card.Body>
                                     </Card>

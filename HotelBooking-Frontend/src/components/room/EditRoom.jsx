@@ -40,7 +40,7 @@ function EditRoom() {
             fetchRoom()
         }, [roomId])
         
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     try{
           const response = await updateRoom(roomId, room)
@@ -65,7 +65,7 @@ function EditRoom() {
         <section className='container, mt-5 mb-5'>
             <div className='row justify-content-center'>
                 <div className='col-md-8 col-lg-6'>
-                   <h2 className='mt-5 mb-2'>Add a New Room</h2>
+                   <h2 className='mt-5 mb-2'>Edit Room</h2>
                    {successMessage && (
 							<div className="alert alert-success fade show"> {successMessage}</div>
 						)}
@@ -74,8 +74,8 @@ function EditRoom() {
 
 
                    <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor='roomType' className='form-label hotel-color'>  Room Type </label>
+                    <div className='mb-3 mt-3'>
+                        <label htmlFor='roomType' className='form-label'>  Room Type </label>
                         <input
 									required
 									type="text"
@@ -108,9 +108,9 @@ function EditRoom() {
                             className='mb-3'/>
                         )}
                     </div>
-                    <div className='d-grid d-md-flex mt-2'>
+                    <div className='d-grid gap-2 d-md-flex mt-2'>
                         <Link to={"/existing-rooms"} className='btn btn-outline-info ml-5' > back </Link>
-                        <button type='submit' className='btn btn-outline-warning'> Edit Room </button>
+                        <button type='submit' className='btn btn-outline-warning'> Save </button>
                        </div>
                    </form>
                 </div>

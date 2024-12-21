@@ -3,13 +3,13 @@ import RoomFilter from '../common/RoomFilter'
 import { deleteRoom, getAllRooms } from '../utils/ApiFunctions'
 import RoomPaginator from '../common/RoomPaginator'
 import { Col, Row } from 'react-bootstrap'
-import { FaTrashAlt, FaEye, FaEdit } from 'react-icons/fa'
+import { FaPlus, FaTrashAlt, FaEye, FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 function ExistingRooms() {
-     const[rooms, setRooms] = useState([])
-     const[currentPage, setCurrentPage] = useState(1)
-     const[roomsPerPage] = useState(8)
+     const[rooms, setRooms] = useState([])//show existing rooms
+     const[currentPage, setCurrentPage] = useState(1)//show current page
+     const[roomsPerPage] = useState(8)//set to show rooms in a page
      const[isLoading, setIsLoading] = useState(false)
      const[filteredRooms, setFilteredRooms] = useState([])
      const[selectedRoomType, setSelectedRoomType] = useState("")
@@ -71,7 +71,7 @@ function ExistingRooms() {
 
      const indexOfLastRoom = currentPage * roomsPerPage
      const indexOfFirstRoom = indexOfLastRoom - roomsPerPage
-     const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom)
+     const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom) 
 
   return (
     <>
@@ -110,10 +110,12 @@ function ExistingRooms() {
                         <td>{room.roomType}</td>
                         <td>{room.roomPrice}</td>
                         <td className='gap-2'>
-                            <Link to={`/edit-room/${room.id}`}> 
+                            <Link to={`/book-room/${room.id}`}>
                             <span className='btn btn-info btn-sm'>
                                 <FaEye/>
                             </span>
+                            </Link>
+                            <Link to={`/edit-room/${room.id}`}> 
                             <span className='btn btn-warning btn-sm'>
                                 <FaEdit/>
                             </span>

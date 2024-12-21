@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { parseISO } from 'date-fns'
 import DateSlider from '../common/DateSlider'
+import moment from "moment"
 
-const BookingsTable = (bookingInfo, handleBookingCancellation) => {
+const BookingsTable = ({bookingInfo, handleBookingCancellation}) => {
     const[filteredBookings, setFilteredBookings] = useState(bookingInfo)
 
     const filteredBooking = (startDate, endDate)=>{
@@ -24,7 +25,7 @@ const BookingsTable = (bookingInfo, handleBookingCancellation) => {
 
   return (
     <section className='p-4'>
-          <DateSlider onDateChange={filteredBooking} onFilterChange={filteredBooking}/>
+       {/*   <DateSlider onDateChange={filteredBooking} onFilterChange={filteredBooking}/> */}
           <table className='table table-bordered table-hover shadow'>
             <thead>
                 <tr>
@@ -38,25 +39,24 @@ const BookingsTable = (bookingInfo, handleBookingCancellation) => {
                     <th>Guest Email</th>
                     <th>Adults</th>
                     <th>Children</th>
-                    <th>Total Guest</th>
                     <th>Confirmation code</th>
                     <th colSpan={2}>Actions</th>
                 </tr>
             </thead>
             <tbody className="text-center">
-					{filteredBookings.map((booking, index) => (
+					{filteredBookings.slice().reverse().map((booking, index) => (
 						<tr key={booking.id}>
 							<td>{index + 1}</td>
 							<td>{booking.id}</td>
 							<td>{booking.room.id}</td>
 							<td>{booking.room.roomType}</td>
-							<td>{booking.checkInDate}</td>
-							<td>{booking.checkOutDate}</td>
+							<td>{moment(booking.checkInDate).subtract(1, "month").format("MMM Do, YYYY")}</td>
+                            
+						    <td>{moment(booking.checkOutDate).subtract(1, "month").format("MMM Do, YYYY")}</td>
 							<td>{booking.guestName}</td>
 							<td>{booking.guestEmail}</td>
 							<td>{booking.numOfAdults}</td>
 							<td>{booking.numOfChildren}</td>
-							<td>{booking.totalNumOfGuests}</td>
 							<td>{booking.bookingConfirmationCode}</td>
 							<td>
 								<button

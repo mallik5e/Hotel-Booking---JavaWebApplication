@@ -7,11 +7,12 @@ const Logout = () => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        auth.handleLogOut() 
+        auth.handleLogout()
+        window.location.reload()
         navigate("/", {state: {message : "You have been logged out!"}})
     }
 
-const isLoggedIn = auth.user !== null
+  const isLoggedIn = localStorage.getItem("token")
 
   return isLoggedIn ?  (
     <>
@@ -20,12 +21,10 @@ const isLoggedIn = auth.user !== null
         Profile
         </Link>
     </li>
-    <li>
-        <hr className='dropdown-divider'/>
-    </li>
-     <button className='dropdown-item' onClick={handleLogout}>
+      <hr className='dropdown-divider' />
+      <button className='dropdown-item' onClick={handleLogout}>
         Logout
-     </button>
+      </button>
     </>
   ) : null
 }

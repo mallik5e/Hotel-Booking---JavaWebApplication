@@ -6,16 +6,16 @@ function RoomFilter({data, setFilteredData}) {
   const handleSelectChange = (e) => {
     const selectedRoomType = e.target.value 
     setFilter(selectedRoomType)
-    const filteredRooms = data.filter((room) =>
-    room.roomType.toLowerCase().includes(selectedRoomType.toLowerCase())
-    )
+    const filteredRooms = data.filter((room) =>//filtering the room using filter().
+    room.roomType.toLowerCase().includes(selectedRoomType.toLowerCase()))//check roomTypes in room includes the selected roomType. if yes,filter.
+    setFilteredData(filteredRooms)
   }
-  const clearFilter = () => {
+  const clearFilter = () => {//when clear the filter
     setFilter("")
     setFilteredData(data)
   }
 
-  const roomTypes = ["", ...new Set(data.map((room) => room.roomType))]
+  const roomTypes = ["", ...new Set(data.map((room) => room.roomType))]//extract all the room type from database. 
 
   return (
     <div className='input-group mb-3'>

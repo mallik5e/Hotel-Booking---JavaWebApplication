@@ -16,7 +16,7 @@ public class BookingService implements IBookingService{
     private final BookingRepository bookingRepository;
     private final RoomService roomService;
 
-    public List<BookedRoom> getAllBookingsByRoomId(Long roomId){
+    public List<BookedRoom> getAllBookingsByRoomId(Long roomId){//get all booking rooms by id
 
         return bookingRepository.findByRoomId(roomId);
     }
@@ -27,7 +27,7 @@ public class BookingService implements IBookingService{
 
     @Override
     public String saveBooking(Long roomId, BookedRoom bookingRequest) {
-       if(bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())){
+       if(bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())){//ensure check-in date first
            throw new InvalidBookingRequestException("Check-in date must come before check-out-date");
        }
        Room room = roomService.getRoomById(roomId).get();

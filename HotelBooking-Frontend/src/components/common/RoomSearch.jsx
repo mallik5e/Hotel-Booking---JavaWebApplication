@@ -78,13 +78,18 @@ const handleClearSearch = () => {
                     </Form.Group>
                 </Col> 
                 <Col xs={12} md={3}>
-                    <Form.Group controlId='roomType'>
-                        <Form.Label>Room Type</Form.Label>
-                        <div className='d-flex'>
-                           <RoomTypeSelector handleRoomInputChange={handleInputChange} newRoom={searchQuery}/>
-                       <Button variant='secondary' type='submit'>Search</Button>
-                        </div>
-                       </Form.Group>
+                <Form.Group controlId="roomType">
+								<Form.Label>Room Type</Form.Label>
+								<div className="d-flex">
+									<RoomTypeSelector
+										handleRoomInputChange={handleInputChange}
+										newRoom={searchQuery}
+									/>
+									<Button variant="secondary" type="submit" className="ml-2">
+										Search
+									</Button>
+								</div>
+							</Form.Group>
                 </Col> 
             </Row>
         </Form>

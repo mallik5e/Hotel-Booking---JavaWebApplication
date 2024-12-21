@@ -41,11 +41,11 @@ const Checkout = () => {
                         <tbody>
                             <tr>
                                 <th>Room Type :</th>
-                                <th>roomInfo.roomType</th>
+                                <th>{roomInfo.roomType}</th>
                             </tr>
                             <tr>
                                 <th>Room Price :</th>
-                                <th>roomInfo.roomPrice</th>
+                                <th>${roomInfo.roomPrice}</th>
                             </tr> 
                             <tr>
                                 <td>
@@ -81,9 +81,9 @@ const Checkout = () => {
 
                   }
               </div>
-              <div className='col-md-6'>
+            <div className='col-md-6'>
               <BookingForm/>
-              </div>
+              </div> 
             </div>
         </section>
         <div className='container'>

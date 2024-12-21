@@ -20,18 +20,29 @@ export async function addRoom(photo, roomType, roomPrice){
     formData.append("roomType", roomType)
     formData.append("roomPrice", roomPrice)
 
-    const response = await api.post("/rooms/add/new-room", formData)
-    if(response.status === 201){
-        return true
-    }else{
-        return false
+    try {
+        const response = await api.post("/rooms/add/new-room", formData,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+                "Content-Type": "multipart/form-data",
+            },
+        })//post the formData
+        if (response.status === 201) {
+            return true;
+        } else {
+            console.error("Unexpected response:", response.data);
+            return false;
+        }
+    } catch (error) {
+        console.error("Error adding room:", error);
+        
     }
 }
 
 /* This function gets all room types from the database */
 export async function getRoomTypes(){
     try{
-           const response = await api.get("/rooms/room-types")
+           const response = await api.get("/rooms/room/types")
            return response.data
     }catch(error){
         throw new Error("Error fetching room types")
@@ -53,7 +64,10 @@ export async function getAllRooms(){
 export async function deleteRoom(roomId){
     try{
           const result = await api.delete(`/rooms/delete/room/${roomId}`,{
-            headers: getHeader()
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+                "Content-Type": "multipart/form-data",
+            },
           })
           return result.data
     }catch(error){
@@ -68,7 +82,10 @@ export async function updateRoom(roomId, roomData){
     formData.append("roomPrice", roomData.roomPrice)
     formData.append("photo", roomData.photo)
     const response = await api.put(`/rooms/update/${roomId}`, formData,{
-        headers: getHeader()
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+            "Content-Type": "multipart/form-data",
+        },
     })
     return response
 }
@@ -102,7 +119,10 @@ export async function bookRoom(roomId, booking){
 export async function getAllBookings(){
     try{
         const result = await api.get('/bookings/all-bookings',{
-            headers: getHeader()
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+                "Content-Type": "multipart/form-data",
+            },
         })
         return result.data 
     }catch(error){
@@ -172,8 +192,11 @@ export async function loginUser(login){
 /*  This is function to get the user profile */
 export async function getUserProfile(userId, token) {
 	try {
-		const response = await api.get(`users/profile/${userId}`, {
-			headers: getHeader()
+		const response = await api.get(`/users/profile/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+                
+            },
 		})
 		return response.data
 	} catch (error) {
@@ -185,7 +208,10 @@ export async function getUserProfile(userId, token) {
 export async function deleteUser(userId) {
 	try {
 		const response = await api.delete(`/users/delete/${userId}`, {
-			headers: getHeader()
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+                "Content-Type": "multipart/form-data",
+            },
 		})
 		return response.data
 	} catch (error) {
@@ -197,7 +223,10 @@ export async function deleteUser(userId) {
 export async function getUser(userId, token) {
 	try {
 		const response = await api.get(`/users/${userId}`, {
-			headers: getHeader()
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is valid
+                
+            },
 		})
 		return response.data
 	} catch (error) {
@@ -209,11 +238,13 @@ export async function getUser(userId, token) {
 export async function getBookingsByUserId(userId, token) {
 	try {
 		const response = await api.get(`/bookings/user/${userId}/bookings`, {
-			headers: getHeader()
-		})
-		return response.data
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`, // Use token from parameter
+			},
+		});
+		return response.data;
 	} catch (error) {
-		console.error("Error fetching bookings:", error.message)
-		throw new Error("Failed to fetch bookings")
+		console.error("Error fetching bookings:", error.response || error);
+		throw new Error("Failed to fetch bookings");
 	}
 }

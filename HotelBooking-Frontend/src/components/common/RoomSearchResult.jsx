@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import RoomPaginator from './RoomPaginator'
 import { Button, Row } from 'react-bootstrap'
-
+import RoomCard from '../room/RoomCard'
 
 const RoomSearchResult = ({results, onClearSearch}) => {
     const[currentPage, setCurrentPage] = useState(1)
     const resultsPerPage = 3
-    const totalResults = results.length() 
+    const totalResults = results.length
     const totalPages = Math.ceil(totalResults / resultsPerPage) 
 
     const handlePageChange = (pageNumber) => {

@@ -1,7 +1,7 @@
 package com.example.lakesidehotel.controller;
 
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
+
 import java.util.List;
 
 import com.example.lakesidehotel.exception.InvalidBookingRequestException;
@@ -57,6 +57,17 @@ public class BookingController {
         } catch (InvalidBookingRequestException e){
                  return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/user/{email}/bookings")
+    public ResponseEntity<List<BookingResponse>> getBookingsByUserEmail(@PathVariable String email) {
+        List<BookedRoom> bookings = bookingService.getBookingsByUserEmail(email);
+        List<BookingResponse> bookingResponses = new ArrayList<>();
+        for (BookedRoom booking : bookings) {
+            BookingResponse bookingResponse = getBookingResponse(booking);
+            bookingResponses.add(bookingResponse);
+        }
+        return ResponseEntity.ok(bookingResponses);
     }
 
     @DeleteMapping("/booking/{bookingId}/delete")

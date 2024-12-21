@@ -10,6 +10,7 @@ function Home() {
   const location = useLocation() 
   const message = location.state && location.state.message
   const currentUser = localStorage.getItem("userId")
+  
   return (
     <section>
 
@@ -19,7 +20,7 @@ function Home() {
        <MainHeader/> 
 
        <div className='container'>
-            <RoomSearch/>
+           <RoomSearch/>
             <RoomCarousel/>
             <Parallax/> 
             <RoomCarousel/>

@@ -5,7 +5,7 @@ import com.example.lakesidehotel.exception.ResourceNotFoundException;
 import com.example.lakesidehotel.model.Room;
 import com.example.lakesidehotel.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,8 +25,8 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
 
     @Override
-    public Room addNewRoom(MultipartFile file, String roomType, BigDecimal roomPrice) throws SQLException, IOException {
-       Room room = new Room();
+    public Room addNewRoom(MultipartFile file, String roomType, BigDecimal roomPrice) throws SQLException, IOException {//add new rooms into database
+       Room room = new Room();//create a new room instance.store roomType,roomPrice,photo to that instance.
        room.setRoomType(roomType);
        room.setRoomPrice(roomPrice);
        if(!file.isEmpty()){
@@ -39,7 +39,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<String> getAllRoomTypes() {
+    public List<String> getAllRoomTypes() {//implementation to get all room types from database.
         return roomRepository.findDistinctRoomTypes();
     }
 

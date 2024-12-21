@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookingResponse {
+public class BookingResponse {//response to the frontend request, it'll shown in frontend.
 
     private Long id;
 

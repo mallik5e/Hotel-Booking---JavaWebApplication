@@ -13,11 +13,11 @@ const Registration = () => {
     const[errorMessage, setErrorMessage] = useState("")
     const[successMessage, setSuccessMessage] = useState() 
 
-    const handleInputChange = () => {
+    const handleInputChange = (e) => {
         setRegistration({...registration, [e.target.name]: e.target.value})
     }
 
-    const handleRegistration = async () => {
+    const handleRegistration = async (e) => {
         e.preventDefault()
         try{
             const result = await registerUser(registration) 

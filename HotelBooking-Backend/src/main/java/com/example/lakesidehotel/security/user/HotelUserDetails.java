@@ -8,6 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.lakesidehotel.model.User;
+
+import java.util.List;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -16,7 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HotelUserDetails implements UserDetails {
-
+/*UserDetails and UserDetailsService are inbuilt class. which are mandate to describe to connect to the database */
     private Long id;
     private String email;
     private String password;
@@ -50,6 +53,7 @@ public class HotelUserDetails implements UserDetails {
         return email;
     }
 
+    {/*inbuilt method, should return all true */}
     @Override
     public boolean isAccountNonExpired() {
         return true;

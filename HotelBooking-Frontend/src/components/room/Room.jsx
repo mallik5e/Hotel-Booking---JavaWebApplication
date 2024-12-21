@@ -51,9 +51,9 @@ return (
             <RoomFilter data={data} setFilteredData={setFilteredData}/>
             </Col> 
 
-            <Col md={6} className='d-flex align-items-center justify-content-end'>
+           {/* <Col md={6} className='d-flex align-items-center justify-content-end'>
             <RoomPaginator currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
-            </Col>
+            </Col> */}
         </Row> 
 
      <Row>{renderRooms()}</Row>
